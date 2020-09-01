@@ -16,6 +16,7 @@ public enum ResultCodeEnum {
     UNKNOWN_REASON(false, 20001, "未知错误"),
 
     BAD_SQL_GRAMMAR(false, 21001, "sql语法错误"),
+    ARITHMETIC_EXCEPTION(false, 21004, "数学语法异常"),
     JSON_PARSE_ERROR(false, 21002, "json解析异常"),
     PARAM_ERROR(false, 21003, "参数不正确"),
 
@@ -57,6 +58,7 @@ public enum ResultCodeEnum {
     LOGIN_ACL(false, 28005, "没有权限"),
     SMS_SEND_ERROR(false, 28006, "短信发送失败"),
     SMS_SEND_ERROR_BUSINESS_LIMIT_CONTROL(false, 28007, "短信发送过于频繁");
+
 
 
     private Boolean success;

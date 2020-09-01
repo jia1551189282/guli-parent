@@ -82,5 +82,57 @@ public class TeacherController {
         return R.ok().data("items",teacherPage);
     }
 
+    /**
+     * 新增讲师
+     * @param  teacher  讲师信息
+     * @return          返回结果
+     */
+    @ApiOperation("新增讲师")
+    @PostMapping("/save")
+    public R save(
+            @ApiParam("讲师对象信息")
+            @RequestBody Teacher teacher){
+        boolean save = teacherService.save(teacher);
+        if(save){
+            return R.ok().message("新增成功");
+        }else {
+            return R.error().message("新增失败");
+        }
+    }
+
+    /**
+     * 根据id修改讲师信息
+     * @param teacher   讲师信息
+     * @return          返回结果
+     */
+    @ApiOperation("修改讲师信息")
+    @PutMapping("update")
+    public R update(
+            @ApiParam("讲师对象")
+            @RequestBody Teacher teacher
+    ){
+        boolean b = teacherService.updateById(teacher);
+        if(b){
+            return R.ok().message("修改成功");
+        }else {
+            return R.error().message("修改失败");
+        }
+    }
+
+    /**
+     *
+     * @param id  讲师id
+     * @return    讲师信息
+     *
+     */
+    @ApiOperation("根据id查询讲师信息")
+    @GetMapping("{id}")
+    public R getById(@PathVariable("id") String  id){
+        Teacher teacher = teacherService.getById(id);
+
+        int i = 10/0;
+        return R.ok().data("teacher",teacher);
+    }
+
 }
 
