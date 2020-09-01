@@ -30,7 +30,10 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
-
+    /**
+     * 查询所有讲师
+     * @return      讲师列表
+     */
     @ApiOperation(value = "所有讲师列表",notes = "查询所有的讲师列表")
     @GetMapping("/list")
     public R listTeacher(){
@@ -38,6 +41,11 @@ public class TeacherController {
         return R.ok().data("items",list);
     }
 
+    /**
+     * 根据id删除讲师
+     * @param id    讲师id
+     * @return      返回处理结果
+     */
     @ApiOperation(value = "根据id删除讲师",notes = "根据id删除，逻辑删除")
     @DeleteMapping("/remove/{id}")
     public R removeById(
@@ -52,10 +60,17 @@ public class TeacherController {
         }
     }
 
+    /**
+     * 带条件的分页查询
+     * @param page      第几页
+     * @param limit     每页条数
+     * @param teacherQuery  条件构造对象
+     * @return              分页结果
+     */
     @ApiOperation("条件分页查询讲师")
     @GetMapping("list/{page}/{limit}")
     public R listPage(
-            @ApiParam(value = "当前也",required = true)
+            @ApiParam(value = "当前页",required = true)
             @PathVariable("page")Long page,
             @ApiParam(value = "分页",required = true)
             @PathVariable("limit")Long limit,
