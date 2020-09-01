@@ -7,14 +7,23 @@ import lombok.ToString;
 /**
  * @author zjiajia
  * @date 2020/9/1 18:05
+ *
+ * 返回结果枚举
  */
 @Getter
 @ToString
 public enum ResultCodeEnum {
-
+    /**
+     * 成功
+     */
     SUCCESS(true, 20000,"成功"),
+    /**
+     * 未知错误
+     */
     UNKNOWN_REASON(false, 20001, "未知错误"),
-
+    /**
+     * 语法错误
+     */
     BAD_SQL_GRAMMAR(false, 21001, "sql语法错误"),
     ARITHMETIC_EXCEPTION(false, 21004, "数学语法异常"),
     JSON_PARSE_ERROR(false, 21002, "json解析异常"),
