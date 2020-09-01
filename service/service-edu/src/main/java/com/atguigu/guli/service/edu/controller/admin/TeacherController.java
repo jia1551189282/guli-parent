@@ -1,11 +1,16 @@
 package com.atguigu.guli.service.edu.controller.admin;
 
 
+import com.atguigu.guli.service.base.result.R;
 import com.atguigu.guli.service.edu.entity.Teacher;
+import com.atguigu.guli.service.edu.entity.query.TeacherQuery;
 import com.atguigu.guli.service.edu.service.TeacherService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,14 +24,47 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin/edu/teacher")
+@Api(tags = "讲师管理")
 public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
 
-    @RequestMapping("/list")
-    public List<Teacher> listTeacher(){
-        return teacherService.list();
+
+    @ApiOperation(value = "所有讲师列表",notes = "查询所有的讲师列表")
+    @GetMapping("/list")
+    public R listTeacher(){
+        List<Teacher> list = teacherService.list();
+        return R.ok().data("items",list);
+    }
+
+    @ApiOperation(value = "根据id删除讲师",notes = "根据id删除，逻辑删除")
+    @DeleteMapping("/remove/{id}")
+    public R removeById(
+            @ApiParam(value = "讲师id",required = true)
+            @PathVariable("id") String id
+    ){
+        boolean b = teacherService.removeById(id);
+        if(b){
+            return R.ok().message("删除成功");
+        }else {
+            return R.error().message("删除失败，讲师不存在");
+        }
+    }
+
+    @ApiOperation("条件分页查询讲师")
+    @GetMapping("list/{page}/{limit}")
+    public R listPage(
+            @ApiParam(value = "当前也",required = true)
+            @PathVariable("page")Long page,
+            @ApiParam(value = "分页",required = true)
+            @PathVariable("limit")Long limit,
+            @ApiParam("讲师条件查询对象")
+            TeacherQuery teacherQuery
+    ){
+
+        Page<Teacher> teacherPage = teacherService.selectPage(page, limit, teacherQuery);
+        return R.ok().data("items",teacherPage);
     }
 
 }

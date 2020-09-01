@@ -73,6 +73,7 @@ public class R {
         return this;
     }
 
+
     public R data(Map<String, Object> map){
         this.setData(map);
         return this;
