@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public R error(Exception e){
         //e.printStackTrace(); //只会将错误堆栈信息打印在控制台中，不会答应到日志里面
-        // 打印出 错误日志  
+        // 打印出 错误日志
         log.error(ExceptionUtils.getStackTrace(e));
         return R.error();
     }
